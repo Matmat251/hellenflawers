@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Hellen</title>
+
+  <!-- Fuente manuscrita -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #f9d29d 0%, #ffd8cb 100%);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-family: "Dancing Script", cursive;
+      color: #b22222;
+      margin-bottom: 40px;
+      font-size: 3em;
+      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Carrusel */
+    .carousel {
+      position: relative;
+      width: 80%;
+      max-width: 700px;
+      height: 400px;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+      margin-bottom: 60px;
+    }
+
+    .carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    .carousel img.active {
+      display: block;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2em;
+      color: white;
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      user-select: none;
+    }
+    .arrow:hover {
+      background: rgba(0,0,0,0.6);
+    }
+    .arrow.left { left: 15px; }
+    .arrow.right { right: 15px; }
+
+    /* Sobre */
+    .sobre {
+      position: relative;
+      width: 340px;
+      height: 220px;
+      cursor: pointer;
+      perspective: 1000px;
+      margin-bottom: 20px;
+    }
+
+    .tapa {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #f4c542;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top;
+      transition: transform 1s;
+      z-index: 2;
+    }
+
+    .cuerpo {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffe79f;
+      border: 2px solid #d1a72c;
+      border-radius: 5px;
+      box-sizing: border-box;
+      z-index: 1;
+    }
+
+    /* Carta */
+    .carta {
+      position: relative;
+      margin-top: -20px; /* se esconde detrás del sobre */
+      width: 280px;
+      background: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.1em;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+      line-height: 1.6;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 1s ease;
+    }
+
+    .sobre.abierto .tapa {
+      transform: rotateX(180deg);
+    }
+
+    .sobre.abierto + .carta {
+      margin-top: -260px; /* sube pero se mantiene visible arriba del sobre */
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 3;
+    }
+
+    /* Botón */
+    .btn {
+      background: #ff7f50;
+      color: white;
+      padding: 14px 28px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      text-decoration: none;
+      margin-top: 30px;
+    }
+    .btn:hover {
+      background: #e5673e;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🐥  Hellen pollito :v 🐥</h1>
+
+  <!-- Carrusel -->
+  <div class="carousel">
+    <span class="arrow left" onclick="mover(-1)">❮</span>
+    <span class="arrow right" onclick="mover(1)">❯</span>
+    <img src="m1.jpg" class="active" alt="Mascota 1">
+    <img src="m2.jpg" alt="Mascota 2">
+    <img src="m3.jpg" alt="Mascota 3">
+    <img src="m4.jpg" alt="Mascota 4">
+    <img src="m5.jpg" alt="Mascota 5">
+  </div>
+
+  <!-- Sobre -->
+  <div class="sobre" id="sobre">
+    <div class="tapa"></div>
+    <div class="cuerpo"></div>
+  </div>
+
+  <!-- Carta -->
+  <div class="carta" id="carta">
+    Oe Hellen,<br><br>
+    Tmr ns q poner xdxdx , espero que te guste este cyberdeatlle :v,tq causa  
+    🐥
+  </div>
+
+  <!-- Botón -->
+  <a href="flores.html" class="btn">Ver flores amarillas 🌼</a>
+
+  <script>
+    // Carrusel
+    let index = 0;
+    const imagenes = document.querySelectorAll(".carousel img");
+
+    function mostrar(n) {
+      imagenes.forEach(img => img.classList.remove("active"));
+      index = (n + imagenes.length) % imagenes.length;
+      imagenes[index].classList.add("active");
+    }
+
+    function mover(dir) {
+      mostrar(index + dir);
+    }
+
+    setInterval(() => mover(1), 4000);
+
+    // Sobre
+    const sobre = document.getElementById("sobre");
+    sobre.addEventListener("click", () => {
+      sobre.classList.toggle("abierto");
+    });
+  </script>
+
+</body>
+</html>
